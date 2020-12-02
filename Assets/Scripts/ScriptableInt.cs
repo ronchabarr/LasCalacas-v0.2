@@ -4,5 +4,8 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class ScriptableInt: ScriptableObject
 {
-    public int i;
+    public int[] kaka;
+
+    
+    
 }

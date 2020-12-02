@@ -43,6 +43,11 @@ public class AnimatorController : MonoBehaviour
             anim.SetTrigger("jump");
         }
 
+        if (player.doShield)
+        {
+            anim.SetTrigger("shield");
+        }
+
         //Attacks Animations//
         for (int i = 0; i < player.Attacks.GetLength(0); i++)
         {

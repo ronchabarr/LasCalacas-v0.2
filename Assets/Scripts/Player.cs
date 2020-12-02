@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-     Rigidbody rb;
+    Rigidbody rb;
     public PlayerStats stats;
     GenericController genericController;
     AnimatorController animatorController;
@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     internal bool isWalking;
     internal bool isCrouching;
     internal bool isGrounded;
+    internal bool doShield;
     
 
 
@@ -179,6 +180,13 @@ public class Player : MonoBehaviour
 
         }
 
+        if (_inputForm.shieldPress && !isAttackState)
+        {
+            StartCoroutine(ShieldPress());
+        }
+       
+
+
 
 
 
@@ -298,6 +306,15 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(2);
         isAttackState = false;
         yield return null;
+    }
+    IEnumerator ShieldPress()
+    {
+        isAttackState = true;
+        doShield = true;
+        yield return new WaitForEndOfFrame();
+        doShield = false;
+        yield return new WaitForSeconds(1);
+        isAttackState = false;
     }
     IEnumerator Gesture1()
     {

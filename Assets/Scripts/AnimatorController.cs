@@ -30,12 +30,11 @@ public class AnimatorController : MonoBehaviour
         }
         else anim.SetBool("isWalking", false);
 
-        if (player.isRunning)
+        if (player.dash)
         {
-            anim.SetBool("isRunning", true);
+            anim.SetTrigger("dash");
         }
-        else anim.SetBool("isRunning", false);
-
+     
 
         //Jump Animation//
         if (player.jump)
@@ -52,8 +51,9 @@ public class AnimatorController : MonoBehaviour
         for (int i = 0; i < player.Attacks.GetLength(0); i++)
         {
             if (player.Attacks[i,0]) 
-            { 
-             if(i==0)
+            {
+                if (i == 0)
+                    anim.SetFloat("attackSpeed", player.stats.attackSpeed);
                 anim.SetTrigger("attack1");
              if (i==1)
                 anim.SetTrigger("attack2");

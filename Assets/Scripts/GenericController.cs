@@ -26,8 +26,9 @@ public class GenericController : MonoBehaviour
         inputForm.rotVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
 
-        run();
-        jump();
+        Dash();
+        //Jump Currently Disabled due to gamedesign 
+        //jump();
         Attacks();
         Skills();
         Gestures();
@@ -44,26 +45,21 @@ public class GenericController : MonoBehaviour
     {
         inputForm.jumpPress = Input.GetKeyDown(KeyCode.Space);
     }
-    public void run()
+    public void Dash()
     {
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            if (!inputForm.runPress)
-            {
-                inputForm.runPress = true;
-
-            }
-            else inputForm.runPress = false;
-        }
+        inputForm.Dash=Input.GetKeyDown(KeyCode.LeftShift);
+   
     }
     public void Skills()
     {
+        //currently there are 2 (posibility for 5 in code)
+
         inputForm.skills[0, 0] = Input.GetKeyDown(KeyCode.Q);
         inputForm.skills[1, 0] = Input.GetKeyDown(KeyCode.E);
-        inputForm.skills[2, 0] = Input.GetKeyDown(KeyCode.R);
-        inputForm.skills[3, 0] = Input.GetKeyDown(KeyCode.T);
-        inputForm.skills[4, 0] = Input.GetKeyDown(KeyCode.Y);
+        //inputForm.skills[2, 0] = Input.GetKeyDown(KeyCode.R);
+        //inputForm.skills[3, 0] = Input.GetKeyDown(KeyCode.T);
+        //inputForm.skills[4, 0] = Input.GetKeyDown(KeyCode.Y);
     }
     public void Gestures()
     {

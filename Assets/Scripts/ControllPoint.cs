@@ -30,7 +30,7 @@ public class ControllPoint : MonoBehaviour
             
         }
 
-        Debug.Log(Capturecount);
+       
     }
     private void OnCollisionStay(Collision collision)
     {

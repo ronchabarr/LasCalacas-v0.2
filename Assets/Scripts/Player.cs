@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameObject Target;
     Rigidbody rb;
     public PlayerStats stats;
     GenericController genericController;
@@ -12,21 +13,22 @@ public class Player : MonoBehaviour
     public GameObject tps;
     int skills = 5;
     int skillsStates = 2;
-    
+    float _speed;
+
     internal bool[,] Attacks = new bool[3,2];
     internal bool[,] Skills = new bool[5,2];
     internal bool[] gestures = new bool[3];
     internal bool[] emotes = new bool[3];
 
     internal bool isAttackState;
-    internal bool isRunning;
+    internal bool dash;
     internal bool jump;
     internal bool isWalking;
     internal bool isCrouching;
     internal bool isGrounded;
     internal bool doShield;
-    
 
+    public LayerMask enemyLayerMask;
 
     Vector2 moveVector;
 
@@ -39,6 +41,10 @@ public class Player : MonoBehaviour
     public float emoteLifetime;
 
 
+    [Header("AttackSources:")]
+    public Transform basicAttackSource;
+
+
     //ADDED
 
     public void Start()
@@ -46,7 +52,7 @@ public class Player : MonoBehaviour
         
         genericController = GetComponent<GenericController>();
         animatorController = GetComponent<AnimatorController>();
-
+        
         rb = GetComponent<Rigidbody>();
     }
 
@@ -54,16 +60,17 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         
-       
        rb.AddRelativeForce(moveVector.x,0,moveVector.y,ForceMode.Impulse);
-        
+        dash = false;
+
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("ground"))
         {
-            Debug.Log("detect");
+            Debug.Log("Ground Detection");
         } 
     }
 
@@ -77,7 +84,7 @@ public class Player : MonoBehaviour
        
         InputForm _inputForm = genericController.GetInputForm();
         
-        float _speed;
+        
 
         if (_inputForm.moveVector != Vector2.zero&&!isAttackState)
         {
@@ -89,13 +96,12 @@ public class Player : MonoBehaviour
             _speed = 0;
             isWalking = false;
         }
-        if (_inputForm.runPress&!isAttackState)
+        if (_inputForm.Dash&!isAttackState&!dash)
         {
-          
-                _speed = stats.runSpeed;
-                isRunning = true;
 
-        }else isRunning = false;
+            StartCoroutine(Dash());
+
+        }
 
 
 
@@ -199,9 +205,10 @@ public class Player : MonoBehaviour
         moveVector = _inputForm.moveVector * _speed;
      
        transform.Rotate(0, _inputForm.rotVector.x, 0);
-        tps.transform.Rotate(-_inputForm.rotVector.y,0,0);
+        tps.transform.Rotate(-_inputForm.rotVector.y*stats.mouseSensetivity,0,0);
+        Target.transform.localPosition = new Vector3(Target.transform.localPosition.x, Target.transform.localPosition.y, Target.transform.localPosition.z + _inputForm.rotVector.y/(stats.mouseSensetivity* stats.targetMoveSpeed));
 
-        
+
 
         animatorController.Animate();
     }
@@ -226,14 +233,43 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+    IEnumerator Dash()
+    {
+        dash = true;
+       // isAttackState = true;
+        rb.AddRelativeForce(Vector3.forward*1000);
+        yield return new WaitForSeconds(1);
+       // isAttackState = false;
+        dash = false;
+        yield return null;
+    }
 
     IEnumerator Attack1()
     {
         isAttackState = true;
         Attacks[0,0] = true;
+        int DamageCount;
+        DamageCount = stats.PhisycalDamage;
+        if (DoCrit())
+        {   //just for presenting!!
+            GetComponentInChildren<ParticleSystem>().Play();
+            DamageCount *= 2;
+         
+        }
+
+        Collider[] hit = Physics.OverlapSphere(basicAttackSource.position, stats.basicAttackRange,enemyLayerMask);
+        foreach(Collider found in hit)
+        {
+            EnemyAI enemyhitted = found.GetComponent<EnemyAI>();
+           
+
+            
+            enemyhitted.GetHit(DamageCount);
+
+        }
         yield return new WaitForEndOfFrame();
         Attacks[0,0] = false;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2f/stats.attackSpeed);
         isAttackState = false;
         yield return null;
     }  
@@ -357,9 +393,25 @@ public class Player : MonoBehaviour
     }
 
 
+    public bool DoCrit()
+    {
+        int CritCount = Random.Range(1, 100);
+    
+        if (stats.CritChance >= CritCount)
+        {
+            return true;
+        }
+        return false;
+    }
 
 
 
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(basicAttackSource.position, stats.basicAttackRange);
+        
+    }
 }
 
 
@@ -368,7 +420,7 @@ public class InputForm
     public Vector2 moveVector;
     public Vector2 rotVector; //x -player y rotation || y -camera rig x rotation
 
-    public bool runPress,crouchPress,jumpHold,jumpPress,attackState,
+    public bool Dash,crouchPress,jumpHold,jumpPress,attackState,
         interractPress,interractHold,shieldPress,shieldHold,menuPress,backPress,reload,charge                 ;
     
     public bool[,] skills = new bool[5,2]; //[x,0] - press array || [x,1] - hold array || x-skill type
@@ -387,6 +439,7 @@ public class InputForm
 
 
 }
+
 
 
 

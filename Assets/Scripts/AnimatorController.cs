@@ -148,27 +148,27 @@ public class AnimatorController : MonoBehaviour
         anim.SetFloat("SkillOne", SkillOne);
 
         //skill Two Counter
-        if (isUsingSkillOne)
+        if (isUsingSkillTwo)
         {
-            SkillOne += Time.deltaTime * SkillOneacceleration;
+            SkillTwo += Time.deltaTime * SkillTwoacceleration;
 
         }
         else
         {
-            if (SkillOne > 0)
+            if (SkillTwo > 0)
             {
-                SkillOne -= Time.deltaTime * SkillOnedeacceleration;
+                SkillTwo -= Time.deltaTime * SkillTwodeacceleration;
             }
-            if (SkillOne < 0)
+            if (SkillTwo < 0)
             {
-                SkillOne = 0;
+                SkillTwo = 0;
             }
         }
-        if (SkillOne >= 1)
+        if (SkillTwo >= 1)
         {
-            isUsingSkillOne = false;
+            isUsingSkillTwo = false;
         }
-        anim.SetFloat("SkillOne", SkillOne);
+        anim.SetFloat("SkillTwo", SkillTwo);
 
 
 
@@ -231,8 +231,13 @@ public class AnimatorController : MonoBehaviour
                     isUsingSkillOne = true;
                     anim.SetTrigger("skill1");
                 }
-                if (i == 1)
+                if (i == 1) 
+                {
+                    isUsingSkillTwo = true;
                     anim.SetTrigger("skill2");
+                }
+                  
+
                 if (i == 2)
                     anim.SetTrigger("skill3");
                 if (i == 3)

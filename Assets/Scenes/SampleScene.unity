@@ -925,10 +925,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
       propertyPath: SkillOneacceleration
-      value: 0.8
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
       propertyPath: SkillOnedeacceleration
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
+      propertyPath: SkillTwoacceleration
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
+      propertyPath: SkillTwodeacceleration
       value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8911771105047378561, guid: d38e852e7a9554749b44f66a61792873, type: 3}

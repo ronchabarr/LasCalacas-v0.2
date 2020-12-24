@@ -9,10 +9,23 @@ public class AnimatorController : MonoBehaviour
     float velocity = 0.0f;
     public float acceleration;
     public float deacceleration;
-    float Atk;
-    public float Atkacceleration;
-    public float Atkdeacceleration;
-    public bool isattacking = false;
+    float AtkOne;
+    public float AtkOneacceleration;
+    public float AtkOnedeacceleration;
+    public bool isattackingOne = false;
+    float AtkTwo;
+    public float AtkTwoacceleration;
+    public float AtkTwodeacceleration;
+    public bool isattackingTwo = false;
+    float SkillOne;
+    public float SkillOneacceleration;
+    public float SkillOnedeacceleration;
+    public bool isUsingSkillOne = false;
+    float SkillTwo;
+    public float SkillTwoacceleration;
+    public float SkillTwodeacceleration;
+    public bool isUsingSkillTwo = false;
+
     [SerializeField]
 
     // Start is called before the first frame update
@@ -26,8 +39,18 @@ public class AnimatorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
+
+
+
+
+
+
 
     }
+
+
+
     public void Animate()
     {
 
@@ -50,6 +73,105 @@ public class AnimatorController : MonoBehaviour
         }
 
 
+
+
+        //atk Counter
+        if (isattackingOne)
+        {
+            AtkOne += Time.deltaTime * AtkOneacceleration;
+
+        }
+        else
+        {
+            if (AtkOne > 0)
+            {
+                AtkOne -= Time.deltaTime * AtkOnedeacceleration;
+            }
+            if (AtkOne < 0)
+            {
+                AtkOne = 0;
+            }
+        }
+        if (AtkOne >= 1)
+        {
+            isattackingOne = false;
+        }
+        anim.SetFloat("AtkOne", AtkOne);
+
+
+        //atk 2 Counter
+        if (isattackingTwo)
+        {
+            AtkTwo += Time.deltaTime * AtkTwoacceleration;
+
+        }
+        else
+        {
+            if (AtkTwo > 0)
+            {
+                AtkTwo -= Time.deltaTime * AtkTwodeacceleration;
+            }
+            if (AtkTwo < 0)
+            {
+                AtkTwo = 0;
+            }
+        }
+        if (AtkTwo >= 1)
+        {
+            isattackingTwo = false;
+        }
+        anim.SetFloat("AtkTwo", AtkTwo);
+
+
+
+        //skill one Counter
+        if (isUsingSkillOne)
+        {
+            SkillOne += Time.deltaTime * SkillOneacceleration;
+
+        }
+        else
+        {
+            if (SkillOne > 0)
+            {
+                SkillOne -= Time.deltaTime * SkillOnedeacceleration;
+            }
+            if (SkillOne < 0)
+            {
+                SkillOne = 0;
+            }
+        }
+        if (SkillOne >= 1)
+        {
+            isUsingSkillOne = false;
+        }
+        anim.SetFloat("SkillOne", SkillOne);
+
+        //skill Two Counter
+        if (isUsingSkillOne)
+        {
+            SkillOne += Time.deltaTime * SkillOneacceleration;
+
+        }
+        else
+        {
+            if (SkillOne > 0)
+            {
+                SkillOne -= Time.deltaTime * SkillOnedeacceleration;
+            }
+            if (SkillOne < 0)
+            {
+                SkillOne = 0;
+            }
+        }
+        if (SkillOne >= 1)
+        {
+            isUsingSkillOne = false;
+        }
+        anim.SetFloat("SkillOne", SkillOne);
+
+
+
         //player blend
         if (velocity > 1)
         {
@@ -63,28 +185,7 @@ public class AnimatorController : MonoBehaviour
         anim.SetFloat("Velocity", velocity);
 
         
-
-        if (isattacking)
-        {
-            Atk += Time.deltaTime * Atkacceleration;
-            
-        }
-        else
-        {
-            if(Atk > 0)
-            {
-                Atk -= Time.deltaTime * Atkacceleration;
-            }
-            if(Atk < 0)
-            {
-                Atk = 0;
-            }
-        }
-        if (Atk >= 1)
-        {
-            isattacking = false;
-        }
-        anim.SetFloat("Test", Atk);
+        
 
         //Jump Animation//
         if (player.jump)
@@ -104,12 +205,15 @@ public class AnimatorController : MonoBehaviour
             {
                 if (i == 0)
                 {
-                    isattacking = true;
+                    isattackingOne = true;
                     anim.SetFloat("attackSpeed", player.stats.attackSpeed);
                     anim.SetTrigger("attack1");
                 }
                 if (i == 1)
+                {
+                    isattackingTwo = true;
                     anim.SetTrigger("attack2");
+                }
                 if (i == 2)
                     anim.SetTrigger("attack3");
             }
@@ -123,7 +227,10 @@ public class AnimatorController : MonoBehaviour
             {
 
                 if (i == 0)
+                {
+                    isUsingSkillOne = true;
                     anim.SetTrigger("skill1");
+                }
                 if (i == 1)
                     anim.SetTrigger("skill2");
                 if (i == 2)

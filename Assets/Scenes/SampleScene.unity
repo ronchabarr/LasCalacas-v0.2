@@ -899,6 +899,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
+      propertyPath: Atkacceleration
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
+      propertyPath: Atkdeacceleration
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
+      propertyPath: AtkOneacceleration
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
+      propertyPath: AtkOnedeacceleration
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
+      propertyPath: AtkTwoacceleration
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
+      propertyPath: AtkTwodeacceleration
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
+      propertyPath: SkillOneacceleration
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873, type: 3}
+      propertyPath: SkillOnedeacceleration
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 8911771105047378561, guid: d38e852e7a9554749b44f66a61792873, type: 3}
       propertyPath: m_Name
       value: Bored

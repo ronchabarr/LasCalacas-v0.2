@@ -9,6 +9,12 @@ public class AnimatorController : MonoBehaviour
     float velocity = 0.0f;
     public float acceleration;
     public float deacceleration;
+    float Atk;
+    public float Atkacceleration;
+    public float Atkdeacceleration;
+    public bool isattacking = false;
+    [SerializeField]
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,11 +62,29 @@ public class AnimatorController : MonoBehaviour
 
         anim.SetFloat("Velocity", velocity);
 
+        
 
-
-
-
-
+        if (isattacking)
+        {
+            Atk += Time.deltaTime * Atkacceleration;
+            
+        }
+        else
+        {
+            if(Atk > 0)
+            {
+                Atk -= Time.deltaTime * Atkacceleration;
+            }
+            if(Atk < 0)
+            {
+                Atk = 0;
+            }
+        }
+        if (Atk >= 1)
+        {
+            isattacking = false;
+        }
+        anim.SetFloat("Test", Atk);
 
         //Jump Animation//
         if (player.jump)
@@ -79,8 +103,11 @@ public class AnimatorController : MonoBehaviour
             if (player.Attacks[i, 0])
             {
                 if (i == 0)
+                {
+                    isattacking = true;
                     anim.SetFloat("attackSpeed", player.stats.attackSpeed);
-                anim.SetTrigger("attack1");
+                    anim.SetTrigger("attack1");
+                }
                 if (i == 1)
                     anim.SetTrigger("attack2");
                 if (i == 2)

@@ -203,10 +203,10 @@ public class Player : MonoBehaviour
 
 
         moveVector = _inputForm.moveVector * _speed;
-     
-       transform.Rotate(0, _inputForm.rotVector.x, 0);
-        tps.transform.Rotate(-_inputForm.rotVector.y*stats.mouseSensetivity,0,0);
-        Target.transform.localPosition = new Vector3(Target.transform.localPosition.x, Target.transform.localPosition.y, Target.transform.localPosition.z + _inputForm.rotVector.y/(stats.mouseSensetivity* stats.targetMoveSpeed));
+
+        transform.Rotate(0, _inputForm.rotVector.x, 0);
+        tps.transform.Rotate(-_inputForm.rotVector.y * stats.mouseSensetivity, 0, 0);
+        Target.transform.localPosition = new Vector3(Target.transform.localPosition.x, Target.transform.localPosition.y, Target.transform.localPosition.z + _inputForm.rotVector.y / (stats.mouseSensetivity * stats.targetMoveSpeed));
 
 
 

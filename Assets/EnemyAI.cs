@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class EnemyAI : MonoBehaviour
 {
     public EnemyStats enemyStats;
     public EnemiesManager enemiesManager=new EnemiesManager();
- 
+    MeshRenderer myMesh;
+   public Material[] mat;
+
+
     internal int hp,level,damage;
     internal int id;
 
@@ -18,7 +23,11 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        myMesh = this.gameObject.GetComponent<MeshRenderer>();
+        hp *= level;
+        damage *= level;
 
+        
        
     }
    
@@ -36,9 +45,12 @@ public class EnemyAI : MonoBehaviour
 
     public void GetHit(int Damage)
     {
-        hp -= Damage;
         
-       
+        hp -= Damage;
+        myMesh.material = mat[1];
+        Invoke("colorBack", 0.2f);
+     
+
 
     } 
     public void Attack()
@@ -56,8 +68,14 @@ public class EnemyAI : MonoBehaviour
     {
         hp = enemyStats.hp;
         damage = enemyStats.damage;
+        level = enemyStats.level;
         
         
+    }
+    public void colorBack()
+    {
+        myMesh.material = mat[0];
+
     }
 
 }

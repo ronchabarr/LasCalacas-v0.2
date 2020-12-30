@@ -30,6 +30,29 @@ public class PlayerStats : ScriptableObject
     [Header("Abilitys")]
     public float ability1_CD;
     public float ability2_CD;
+
+    [Header("Animation related")]
+    public float velocity = 0.0f;
+    public float acceleration;
+    public float deacceleration;
+    public float AtkOne;
+    public float AtkOneacceleration;
+    public float AtkOnedeacceleration;
+    public bool isattackingOne = false;
+    public float AtkTwo;
+    public float AtkTwoacceleration;
+    public float AtkTwodeacceleration;
+    public bool isattackingTwo = false;
+    public float SkillOne;
+    public float SkillOneacceleration;
+    public float SkillOnedeacceleration;
+    public bool isUsingSkillOne = false;
+    public float SkillTwo;
+    public float SkillTwoacceleration;
+    public float SkillTwodeacceleration;
+    public bool isUsingSkillTwo = false;
+
+
 }
 
    

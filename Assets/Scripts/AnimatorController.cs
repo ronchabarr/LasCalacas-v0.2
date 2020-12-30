@@ -6,25 +6,7 @@ public class AnimatorController : MonoBehaviour
 {
     Player player;
     Animator anim;
-    float velocity = 0.0f;
-    public float acceleration;
-    public float deacceleration;
-    float AtkOne;
-    public float AtkOneacceleration;
-    public float AtkOnedeacceleration;
-    public bool isattackingOne = false;
-    float AtkTwo;
-    public float AtkTwoacceleration;
-    public float AtkTwodeacceleration;
-    public bool isattackingTwo = false;
-    float SkillOne;
-    public float SkillOneacceleration;
-    public float SkillOnedeacceleration;
-    public bool isUsingSkillOne = false;
-    float SkillTwo;
-    public float SkillTwoacceleration;
-    public float SkillTwodeacceleration;
-    public bool isUsingSkillTwo = false;
+    
 
     [SerializeField]
 
@@ -76,113 +58,113 @@ public class AnimatorController : MonoBehaviour
 
 
         //atk Counter
-        if (isattackingOne)
+        if (player.stats.isattackingOne)
         {
-            AtkOne += Time.deltaTime * AtkOneacceleration;
+            player.stats.AtkOne += Time.deltaTime * player.stats.AtkOneacceleration;
 
         }
         else
         {
-            if (AtkOne > 0)
+            if (player.stats.AtkOne > 0)
             {
-                AtkOne -= Time.deltaTime * AtkOnedeacceleration;
+                player.stats.AtkOne -= Time.deltaTime * player.stats.AtkOnedeacceleration;
             }
-            if (AtkOne < 0)
+            if (player.stats.AtkOne < 0)
             {
-                AtkOne = 0;
+                player.stats.AtkOne = 0;
             }
         }
-        if (AtkOne >= 1)
+        if (player.stats.AtkOne >= 1)
         {
-            isattackingOne = false;
+            player.stats.isattackingOne = false;
         }
-        anim.SetFloat("AtkOne", AtkOne);
+        anim.SetFloat("AtkOne", player.stats.AtkOne);
 
 
         //atk 2 Counter
-        if (isattackingTwo)
+        if (player.stats.isattackingTwo)
         {
-            AtkTwo += Time.deltaTime * AtkTwoacceleration;
+            player.stats.AtkTwo += Time.deltaTime * player.stats.AtkTwoacceleration;
 
         }
         else
         {
-            if (AtkTwo > 0)
+            if (player.stats.AtkTwo > 0)
             {
-                AtkTwo -= Time.deltaTime * AtkTwodeacceleration;
+                player.stats.AtkTwo -= Time.deltaTime * player.stats.AtkTwodeacceleration;
             }
-            if (AtkTwo < 0)
+            if (player.stats.AtkTwo < 0)
             {
-                AtkTwo = 0;
+                player.stats.AtkTwo = 0;
             }
         }
-        if (AtkTwo >= 1)
+        if (player.stats.AtkTwo >= 1)
         {
-            isattackingTwo = false;
+            player.stats.isattackingTwo = false;
         }
-        anim.SetFloat("AtkTwo", AtkTwo);
+        anim.SetFloat("AtkTwo", player.stats.AtkTwo);
 
 
 
         //skill one Counter
-        if (isUsingSkillOne)
+        if (player.stats.isUsingSkillOne)
         {
-            SkillOne += Time.deltaTime * SkillOneacceleration;
+            player.stats.SkillOne += Time.deltaTime * player.stats.SkillOneacceleration;
 
         }
         else
         {
-            if (SkillOne > 0)
+            if (player.stats.SkillOne > 0)
             {
-                SkillOne -= Time.deltaTime * SkillOnedeacceleration;
+                player.stats.SkillOne -= Time.deltaTime * player.stats.SkillOnedeacceleration;
             }
-            if (SkillOne < 0)
+            if (player.stats.SkillOne < 0)
             {
-                SkillOne = 0;
+                player.stats.SkillOne = 0;
             }
         }
-        if (SkillOne >= 1)
+        if (player.stats.SkillOne >= 1)
         {
-            isUsingSkillOne = false;
+            player.stats.isUsingSkillOne = false;
         }
-        anim.SetFloat("SkillOne", SkillOne);
+        anim.SetFloat("SkillOne", player.stats.SkillOne);
 
         //skill Two Counter
-        if (isUsingSkillTwo)
+        if (player.stats.isUsingSkillTwo)
         {
-            SkillTwo += Time.deltaTime * SkillTwoacceleration;
+            player.stats.SkillTwo += Time.deltaTime * player.stats.SkillTwoacceleration;
 
         }
         else
         {
-            if (SkillTwo > 0)
+            if (player.stats.SkillTwo > 0)
             {
-                SkillTwo -= Time.deltaTime * SkillTwodeacceleration;
+                player.stats.SkillTwo -= Time.deltaTime * player.stats.SkillTwodeacceleration;
             }
-            if (SkillTwo < 0)
+            if (player.stats.SkillTwo < 0)
             {
-                SkillTwo = 0;
+                player.stats.SkillTwo = 0;
             }
         }
-        if (SkillTwo >= 1)
+        if (player.stats.SkillTwo >= 1)
         {
-            isUsingSkillTwo = false;
+            player.stats.isUsingSkillTwo = false;
         }
-        anim.SetFloat("SkillTwo", SkillTwo);
+        anim.SetFloat("SkillTwo", player.stats.SkillTwo);
 
 
 
         //player blend
-        if (velocity > 1)
+        if (player.stats.velocity > 1)
         {
-            velocity = 1;
+            player.stats.velocity = 1;
         }
-        else if (velocity < 0)
+        else if (player.stats.velocity < 0)
         {
-            velocity = 0;
+            player.stats.velocity = 0;
         }
 
-        anim.SetFloat("Velocity", velocity);
+        anim.SetFloat("Velocity", player.stats.velocity);
 
         
         

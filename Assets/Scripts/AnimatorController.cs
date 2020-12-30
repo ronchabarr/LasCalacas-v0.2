@@ -29,16 +29,16 @@ public class AnimatorController : MonoBehaviour
         }
         else anim.SetBool("isWalking", false);
 
-        if (player.dash && player.isAttackState)
-        {
-            anim.SetTrigger("dash");
-        }
+       
     }
     public void CommandAnimes()
     {
 
-        
-     
+        if (player.dash && player.isAttackState)
+        {
+            anim.SetTrigger("dash");
+        }
+
 
         //Jump Animation//
         if (player.jump)

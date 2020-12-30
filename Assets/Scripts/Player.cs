@@ -413,6 +413,7 @@ public class Player : MonoBehaviour
         isAttackState = true;
         Skills[2,0] = true;
         _animatorController.CommandAnimes();
+       // skill3PS.Play();
         yield return new WaitForEndOfFrame();
         Skills[2,0] = false;
         yield return new WaitForSeconds(2);

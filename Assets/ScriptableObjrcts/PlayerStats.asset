@@ -31,3 +31,22 @@ MonoBehaviour:
   basicAttackRange: 0.7
   ability1_CD: 0
   ability2_CD: 0
+  velocity: 0
+  acceleration: 0.8
+  deacceleration: 0.7
+  AtkOne: 0
+  AtkOneacceleration: 0.6
+  AtkOnedeacceleration: 0.6
+  isattackingOne: 0
+  AtkTwo: 0
+  AtkTwoacceleration: 0.5
+  AtkTwodeacceleration: 0.5
+  isattackingTwo: 0
+  SkillOne: 0
+  SkillOneacceleration: 0.8
+  SkillOnedeacceleration: 0.8
+  isUsingSkillOne: 0
+  SkillTwo: 0
+  SkillTwoacceleration: 0.6
+  SkillTwodeacceleration: 0.9
+  isUsingSkillTwo: 0

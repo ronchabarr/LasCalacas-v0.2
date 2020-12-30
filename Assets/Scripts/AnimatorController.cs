@@ -40,12 +40,12 @@ public class AnimatorController : MonoBehaviour
         if (player.isWalking)
         {
             anim.SetBool("isWalking", true);
-            velocity += Time.deltaTime * acceleration;
+            player.stats.velocity += Time.deltaTime * player.stats.acceleration;
         }
         else
         {
             anim.SetBool("isWalking", false);
-            velocity -= Time.deltaTime * deacceleration;
+            player.stats.velocity -= Time.deltaTime * player.stats.deacceleration;
         }
 
         if (player.dash)
@@ -187,13 +187,13 @@ public class AnimatorController : MonoBehaviour
             {
                 if (i == 0)
                 {
-                    isattackingOne = true;
+                    player.stats.isattackingOne = true;
                     anim.SetFloat("attackSpeed", player.stats.attackSpeed);
                     anim.SetTrigger("attack1");
                 }
                 if (i == 1)
                 {
-                    isattackingTwo = true;
+                    player.stats.isattackingTwo = true;
                     anim.SetTrigger("attack2");
                 }
                 if (i == 2)
@@ -210,12 +210,12 @@ public class AnimatorController : MonoBehaviour
 
                 if (i == 0)
                 {
-                    isUsingSkillOne = true;
+                    player.stats.isUsingSkillOne = true;
                     anim.SetTrigger("skill1");
                 }
                 if (i == 1) 
                 {
-                    isUsingSkillTwo = true;
+                    player.stats.isUsingSkillTwo = true;
                     anim.SetTrigger("skill2");
                 }
                   

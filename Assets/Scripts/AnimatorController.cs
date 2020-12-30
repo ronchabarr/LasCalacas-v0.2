@@ -20,9 +20,8 @@ public class AnimatorController : MonoBehaviour
     {
      
     }
-    public void Animate()
+    public void UpdateAnimes()
     {
-
         //Movement Animations//
         if (player.isWalking)
         {
@@ -30,11 +29,15 @@ public class AnimatorController : MonoBehaviour
         }
         else anim.SetBool("isWalking", false);
 
-        if (player.isRunning)
+       
+    }
+    public void CommandAnimes()
+    {
+
+        if (player.dash && player.isAttackState)
         {
-            anim.SetBool("isRunning", true);
+            anim.SetTrigger("dash");
         }
-        else anim.SetBool("isRunning", false);
 
 
         //Jump Animation//
@@ -43,12 +46,18 @@ public class AnimatorController : MonoBehaviour
             anim.SetTrigger("jump");
         }
 
+        if (player.doShield)
+        {
+            anim.SetTrigger("shield");
+        }
+
         //Attacks Animations//
         for (int i = 0; i < player.Attacks.GetLength(0); i++)
         {
             if (player.Attacks[i,0]) 
-            { 
-             if(i==0)
+            {
+                if (i == 0)
+                    anim.SetFloat("attackSpeed",player.stats.attackSpeed);
                 anim.SetTrigger("attack1");
              if (i==1)
                 anim.SetTrigger("attack2");
@@ -61,7 +70,7 @@ public class AnimatorController : MonoBehaviour
         //Skills Animations//
         for (int i = 0; i < player.Skills.GetLength(0); i++)
         {
-            if (player.Skills[i, 0])
+            if (player.Skills[i, 0] && !player.Skills[i, 1]) 
             {
 
             if (i==0)

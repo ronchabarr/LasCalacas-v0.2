@@ -26,12 +26,14 @@ public class GenericController : MonoBehaviour
         inputForm.rotVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
 
-        run();
-        jump();
+        Dash();
+        //Jump Currently Disabled due to gamedesign 
+        //jump();
         Attacks();
         Skills();
         Gestures();
         Emotes();
+        Shield();
 
 
         return inputForm;
@@ -41,125 +43,48 @@ public class GenericController : MonoBehaviour
 
     public void jump()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            inputForm.jumpPress = true;
-        }
-        else inputForm.jumpPress = false;
-
+        inputForm.jumpPress = Input.GetKeyDown(KeyCode.Space);
     }
-    public void run()
+    public void Dash()
     {
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            if (!inputForm.runPress)
-            {
-                inputForm.runPress = true;
-
-            }
-            else inputForm.runPress = false;
-        }
+        inputForm.Dash=Input.GetKeyDown(KeyCode.LeftShift);
+   
     }
     public void Skills()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            inputForm.skills[0, 0] = true;
-        }
-        else inputForm.skills[0, 0] = false;
+        //currently there are 2 (posibility for 5 in code)
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            inputForm.skills[1, 0] = true;
-        }
-        else inputForm.skills[1, 0] = false;
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            inputForm.skills[2, 0] = true;
-        }
-        else inputForm.skills[2, 0] = false;
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            inputForm.skills[3, 0] = true;
-        }
-        else inputForm.skills[3, 0] = false;
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            inputForm.skills[4, 0] = true;
-        }
-        else inputForm.skills[4, 0] = false;
-
+        inputForm.skills[0, 0] = Input.GetKeyDown(KeyCode.Q);
+        inputForm.skills[1, 0] = Input.GetKeyDown(KeyCode.E);
+        inputForm.skills[2, 0] = Input.GetKeyDown(KeyCode.R);
+        //inputForm.skills[3, 0] = Input.GetKeyDown(KeyCode.T);
+        //inputForm.skills[4, 0] = Input.GetKeyDown(KeyCode.Y);
     }
     public void Gestures()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            inputForm.gesture[0] = true;
-
-        }else inputForm.gesture[0] = false;
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            inputForm.gesture[1] = true;
-
-        }
-        else inputForm.gesture[1] = false;
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            inputForm.gesture[2] = true;
-
-        }
-        else inputForm.gesture[2] = false;
-
+        inputForm.gesture[0] = Input.GetKeyDown(KeyCode.Alpha1);
+        inputForm.gesture[1] = Input.GetKeyDown(KeyCode.Alpha2);
+        inputForm.gesture[2] = Input.GetKeyDown(KeyCode.Alpha3);
     }
     private void Emotes()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            inputForm.emote[0] = true;
-        }
-        else inputForm.emote[0] = false;
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            inputForm.emote[1] = true;
-        }
-        else inputForm.emote[1] = false;
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            inputForm.emote[2] = true;
-        }
-        else inputForm.emote[2] = false;
-
+        inputForm.emote[0] = Input.GetKeyDown(KeyCode.I);
+        inputForm.emote[1] = Input.GetKeyDown(KeyCode.O);
+        inputForm.emote[2] = Input.GetKeyDown(KeyCode.P);
     }
 
     public void Attacks()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            inputForm.attacks[0, 0] = true;
-        }
-        else inputForm.attacks[0, 0] = false;
+        inputForm.attacks[0, 0] = Input.GetMouseButtonDown(0);
+        inputForm.attacks[1, 0] = Input.GetMouseButtonDown(1);
 
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            inputForm.attacks[1, 0] = true;
-        }
-        else inputForm.attacks[1, 0] = false;
-
-        if (Input.GetMouseButtonDown(1) && Input.GetMouseButtonDown(0))
-        {
-            inputForm.attacks[0, 0] = false;
-            inputForm.attacks[1, 0] = false;
-            inputForm.attacks[2, 0] = true;
-
-        }
-        else inputForm.attacks[2, 0] = false;
-
+        //3rd input attack Down(not compatable with game design)
+        //
+        //inputForm.attacks[2, 0] = Input.GetMouseButtonDown(1) && Input.GetMouseButtonDown(0);
+    }
+    public void Shield()
+    {
+        inputForm.shieldPress = Input.GetKeyDown(KeyCode.V); 
     }
 }

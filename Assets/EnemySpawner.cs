@@ -6,8 +6,10 @@ public class EnemySpawner : MonoBehaviour
 {
     
     EnemiesManager enemysManager;
-    public GameObject[] enemyTypes; 
+    public GameObject[] enemyTypes;
+    public Transform spawnPos;
     internal int nextID;
+    
 
     void Start()
     {   enemysManager = new EnemiesManager();
@@ -59,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
     public void CreateNewEnemy()
     {
       EnemyAI enemyAI;
-     GameObject go = Instantiate(enemyTypes[0]);
+     GameObject go = Instantiate(enemyTypes[Random.Range(0,enemyTypes.Length)],spawnPos.position,Quaternion.identity);
      enemyAI = go.GetComponent<EnemyAI>();
      enemyAI.id = nextID;
      enemyAI.enemiesManager = enemysManager;

@@ -17,36 +17,29 @@ MonoBehaviour:
   crouchSpeed: 0
   airSpeed: 0
   jumpForce: 550
-  attackSpeed: 2
-  maxHp: 0
-  currentHp: 0
-  stamina: 0
+  attackSpeed: 1
+  lifeSteal: 0
+  maxHp: 100
+  currentHp: 100
+  stamina: 100
   shield: 0
-  Level: 0
-  CritChance: 1
-  PhisycalDamage: 100
-  AbilityDamage: 0
+  Level: 1
+  CritChance: 50
+  PhisycalDamage: 40
+  AbilityDamage: 20
   mouseSensetivity: 1
   targetMoveSpeed: 30
   basicAttackRange: 0.7
   ability1_CD: 0
-  ability2_CD: 0
-  velocity: 0
-  acceleration: 0.8
-  deacceleration: 0.7
-  AtkOne: 0
-  AtkOneacceleration: 0.6
-  AtkOnedeacceleration: 0.6
-  isattackingOne: 0
-  AtkTwo: 0
-  AtkTwoacceleration: 0.5
-  AtkTwodeacceleration: 0.5
-  isattackingTwo: 0
-  SkillOne: 0
-  SkillOneacceleration: 0.8
-  SkillOnedeacceleration: 0.8
-  isUsingSkillOne: 0
-  SkillTwo: 0
-  SkillTwoacceleration: 0.6
-  SkillTwodeacceleration: 0.9
-  isUsingSkillTwo: 0
+  ability1_Duration: 0
+  ability1_Range: 0
+  ability2_CD: 8
+  ability2_Duration: 3
+  ability2_Range: 3
+  ability2_Effect: {fileID: 0}
+  ability3_CD: 0
+  ability3_Duration: 0
+  ability3_Range: 0
+  ability4_CD: 0
+  ability4_Duration: 0
+  ability4_Range: 0

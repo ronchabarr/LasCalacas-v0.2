@@ -43,3 +43,22 @@ MonoBehaviour:
   ability4_CD: 0
   ability4_Duration: 0
   ability4_Range: 0
+  velocity: 0
+  acceleration: 0.7
+  deacceleration: 0.85
+  AtkOne: 0
+  AtkOneacceleration: 0.5
+  AtkOnedeacceleration: 0.7
+  isattackingOne: 0
+  AtkTwo: 0
+  AtkTwoacceleration: 0.7
+  AtkTwodeacceleration: 0.7
+  isattackingTwo: 0
+  SkillOne: 0
+  SkillOneacceleration: 0.6
+  SkillOnedeacceleration: 0.6
+  isUsingSkillOne: 0
+  SkillTwo: 0
+  SkillTwoacceleration: 0.6
+  SkillTwodeacceleration: 0.6
+  isUsingSkillTwo: 0

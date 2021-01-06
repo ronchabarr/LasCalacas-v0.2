@@ -6,11 +6,11 @@ public class AnimatorController : MonoBehaviour
 {
     Player player;
     Animator anim;
-  
+
     // Start is called before the first frame update
     void Start()
     {
-       
+
         player = GetComponent<Player>();
         anim = GetComponent<Animator>();
     }
@@ -18,7 +18,12 @@ public class AnimatorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
+
+    }
+    public void SlowMotionAnim(float rythem)
+    {
+
+        anim.SetFloat("slowMo", rythem);
     }
     public void UpdateAnimes()
     {
@@ -29,12 +34,13 @@ public class AnimatorController : MonoBehaviour
         }
         else anim.SetBool("isWalking", false);
 
-       
+
     }
     public void CommandAnimes()
     {
 
         if (player.dash && player.isAttackState)
+
         {
             anim.SetTrigger("dash");
         }
@@ -54,7 +60,7 @@ public class AnimatorController : MonoBehaviour
         //Attacks Animations//
         for (int i = 0; i < player.Attacks.GetLength(0); i++)
         {
-            if (player.Attacks[i,0]) 
+            if (player.Attacks[i,0])
             {
                 if (i == 0)
                     anim.SetFloat("attackSpeed",player.stats.attackSpeed);
@@ -66,11 +72,11 @@ public class AnimatorController : MonoBehaviour
             }
 
         }
-    
+
         //Skills Animations//
         for (int i = 0; i < player.Skills.GetLength(0); i++)
         {
-            if (player.Skills[i, 0] && !player.Skills[i, 1]) 
+            if (player.Skills[i, 0] && !player.Skills[i, 1])
             {
 
             if (i==0)
@@ -79,9 +85,11 @@ public class AnimatorController : MonoBehaviour
                 anim.SetTrigger("skill2");
             if (i==2)
                 anim.SetTrigger("skill3");
-            if (i==3)
+                if (i == 3)
+
                 anim.SetTrigger("skill4");
             if (i==4)
+
                 anim.SetTrigger("skill5");
             }
         }
@@ -113,5 +121,5 @@ public class AnimatorController : MonoBehaviour
         }
 
     }
-   
+
 }

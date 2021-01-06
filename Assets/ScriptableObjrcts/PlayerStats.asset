@@ -30,19 +30,4 @@ MonoBehaviour:
   targetMoveSpeed: 30
   basicAttackRange: 0.7
   ability1_CD: 0
-<<<<<<< Updated upstream
   ability2_CD: 0
-=======
-  ability1_Duration: 0
-  ability1_Range: 0
-  ability2_CD: 8
-  ability2_Duration: 3
-  ability2_Range: 3
-  ability2_Effect: {fileID: 0}
-  ability3_CD: 0
-  ability3_Duration: 0
-  ability3_Range: 0
-  ability4_CD: 0
-  ability4_Duration: 1
-  ability4_Range: 5
->>>>>>> Stashed changes

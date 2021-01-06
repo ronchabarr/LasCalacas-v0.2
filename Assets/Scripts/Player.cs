@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     int skills = 5;
     int skillsStates = 2;
     float _speed;
+    public Camera myCam;
 
     internal bool[,] Attacks = new bool[3,2];
     internal bool[,] Skills = new bool[5,2];
@@ -30,7 +31,17 @@ public class Player : MonoBehaviour
 
     public LayerMask enemyLayerMask;
 
+<<<<<<< Updated upstream
     Vector2 moveVector;
+=======
+    public ParticleSystem basicAttackPS;
+    public ParticleSystem skill2PS;
+    public ParticleSystem[] skill3PS;
+    public ParticleSystem skill1PS;
+    public EarthCrackSkill earthCrackSkill;
+    public GameObject GroundSmackskill;
+    public Vector2 moveVector;
+>>>>>>> Stashed changes
 
     //ADDED
     public GameObject emotePrefab; //has Emote script
@@ -56,7 +67,50 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+<<<<<<< Updated upstream
    
+=======
+    public void PrintData()
+    {
+        stats.ability1_CD = StatsSO.ability1_CD;
+        stats.ability2_CD = StatsSO.ability2_CD;
+        stats.AbilityDamage = StatsSO.AbilityDamage;
+        stats.airSpeed = StatsSO.airSpeed;
+        stats.attackSpeed = StatsSO.attackSpeed;
+        stats.basicAttackRange = StatsSO.basicAttackRange;
+        stats.CritChance = StatsSO.CritChance;
+        stats.crouchSpeed = StatsSO.crouchSpeed;
+        stats.currentHp = StatsSO.currentHp;
+        stats.DashForce = StatsSO.DashForce;
+        stats.jumpForce = StatsSO.jumpForce;
+        stats.Level = StatsSO.Level;
+        stats.lifeSteal= StatsSO.lifeSteal;
+        stats.maxHp= StatsSO.maxHp;
+        stats.mouseSensetivity= StatsSO.mouseSensetivity;
+        stats.moveSpeed = StatsSO.moveSpeed;
+        stats.PhisycalDamage= StatsSO.PhisycalDamage;
+        stats.shield = StatsSO.shield;
+        stats.stamina = StatsSO.stamina;
+        stats.targetMoveSpeed= StatsSO.targetMoveSpeed;
+        stats.ability1_CD = StatsSO.ability1_CD;
+        stats.ability1_Duration = StatsSO.ability1_Duration;
+        stats.ability1_Range = StatsSO.ability1_Range;
+        stats.ability2_CD = StatsSO.ability2_CD;
+        stats.ability2_Duration = StatsSO.ability2_Duration;
+        stats.ability2_Range = StatsSO.ability2_Range;
+        stats.ability2_Effect = StatsSO.ability2_Effect;
+        stats.ability3_CD = StatsSO.ability3_CD;
+        stats.ability3_Duration = StatsSO.ability3_Duration;
+        stats.ability3_Range = StatsSO.ability3_Range;
+        stats.ability4_CD = StatsSO.ability4_CD;
+        stats.ability4_Duration = StatsSO.ability4_Duration;
+        stats.ability4_Range = StatsSO.ability4_Range;
+
+
+
+
+    }
+>>>>>>> Stashed changes
 
     private void FixedUpdate()
     {
@@ -72,6 +126,11 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Ground Detection");
         } 
+    }
+    public void CameraShake(float lenght,float strenght)
+    {
+        CameraShake camShake = myCam.GetComponent<CameraShake>();
+        StartCoroutine(camShake.Shake(lenght, strenght));
     }
 
 
@@ -212,6 +271,31 @@ public class Player : MonoBehaviour
 
         animatorController.Animate();
     }
+    public IEnumerator LeapTowards()
+    {
+            
+        for (int i = 0; i < 80; i++)
+        {
+            if (i > 40&&i<60)
+            {
+
+                transform.Translate((Target.transform.localPosition * 2) / 80);
+                yield return new WaitForSeconds(0.3f / (80 - i));
+            }
+            else
+            {
+
+                transform.Translate((Target.transform.localPosition * 2) / 80);
+                yield return new WaitForSeconds(0.1f / (80 - i));
+            }
+               
+            
+
+            
+        }
+        yield return null;
+           
+    }
 
     private void AttackByIndex(int i)
     {
@@ -317,6 +401,19 @@ public class Player : MonoBehaviour
     {
         isAttackState = true;
         Skills[2,0] = true;
+<<<<<<< Updated upstream
+=======
+        _animatorController.CommandAnimes();
+        yield return new WaitForSeconds(1);
+        earthCrackSkill.Init();
+        CameraShake(1f, 0.5f);
+        for (int i = 0; i < skill3PS.Length; i++)
+        {
+
+            skill3PS[i].Play();
+        }
+        
+>>>>>>> Stashed changes
         yield return new WaitForEndOfFrame();
         Skills[2,0] = false;
         yield return new WaitForSeconds(2);
@@ -325,11 +422,47 @@ public class Player : MonoBehaviour
     }
     IEnumerator Skill4()
     {
+        float secondsInIE = 0;
+        int damageCount;
+        damageCount = stats.AbilityDamage;
         isAttackState = true;
         Skills[3,0] = true;
+<<<<<<< Updated upstream
+=======
+        _animatorController.CommandAnimes();
+        yield return new WaitForSeconds(0.6f);
+        StartCoroutine(LeapTowards());
+        _animatorController.SlowMotionAnim(2.2f);
+        yield return new WaitForSeconds(0.2f);
+        _animatorController.SlowMotionAnim(0.25f);
+        yield return new WaitForSeconds(0.5f);
+        _animatorController.SlowMotionAnim(3.5f);
+       yield return new WaitForSeconds(0.3f);
+        _animatorController.SlowMotionAnim(1);
+        GameObject prefab = Instantiate(GroundSmackskill,transform.position,Quaternion.identity);
+        prefab.GetComponent<GroundSmackEffect>().Init();
+        
+     //  prefab.transform.DetachChildren();
+
+        for (int i = 0; i < stats.ability4_Duration; i++)
+        {
+
+            Collider[] hit = Physics.OverlapSphere(transform.position, stats.ability4_Range, enemyLayerMask);
+            foreach (Collider found in hit)
+            {
+                EnemyAI enemyhitted = found.GetComponent<EnemyAI>();
+                enemyhitted.ApplyKnockBack(1000, transform.position, 6.5f);
+                enemyhitted.GetHit(damageCount);
+            }
+            secondsInIE++;
+        }
+
+        CameraShake(1f,4f);
+>>>>>>> Stashed changes
         yield return new WaitForEndOfFrame();
         Skills[3,0] = false;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
+        Destroy(prefab);
         isAttackState = false;
         yield return null;
     }

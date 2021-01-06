@@ -20,7 +20,16 @@ public class AnimatorController : MonoBehaviour
     {
      
     }
+<<<<<<< Updated upstream
     public void Animate()
+=======
+    public void SlowMotionAnim(float rythem)
+    {
+        
+        anim.SetFloat("slowMo", rythem);
+    }
+    public void UpdateAnimes()
+>>>>>>> Stashed changes
     {
 
         //Movement Animations//
@@ -30,7 +39,16 @@ public class AnimatorController : MonoBehaviour
         }
         else anim.SetBool("isWalking", false);
 
+<<<<<<< Updated upstream
         if (player.dash)
+=======
+    
+    }
+    public void CommandAnimes()
+    {
+
+        if (player.dash && player.isAttackState)
+>>>>>>> Stashed changes
         {
             anim.SetTrigger("dash");
         }
@@ -75,9 +93,11 @@ public class AnimatorController : MonoBehaviour
                 anim.SetTrigger("skill2");
             if (i==2)
                 anim.SetTrigger("skill3");
-            if (i==3)
+                if (i == 3)
+                
                 anim.SetTrigger("skill4");
             if (i==4)
+
                 anim.SetTrigger("skill5");
             }
         }

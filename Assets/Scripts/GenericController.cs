@@ -57,13 +57,8 @@ public class GenericController : MonoBehaviour
 
         inputForm.skills[0, 0] = Input.GetKeyDown(KeyCode.Q);
         inputForm.skills[1, 0] = Input.GetKeyDown(KeyCode.E);
-<<<<<<< Updated upstream
-        //inputForm.skills[2, 0] = Input.GetKeyDown(KeyCode.R);
-        //inputForm.skills[3, 0] = Input.GetKeyDown(KeyCode.T);
-=======
         inputForm.skills[2, 0] = Input.GetKeyDown(KeyCode.R);
         inputForm.skills[3, 0] = Input.GetKeyDown(KeyCode.T);
->>>>>>> Stashed changes
         //inputForm.skills[4, 0] = Input.GetKeyDown(KeyCode.Y);
     }
     public void Gestures()
@@ -83,7 +78,10 @@ public class GenericController : MonoBehaviour
     {
         inputForm.attacks[0, 0] = Input.GetMouseButtonDown(0);
         inputForm.attacks[1, 0] = Input.GetMouseButtonDown(1);
-        inputForm.attacks[2, 0] = Input.GetMouseButtonDown(1) && Input.GetMouseButtonDown(0);
+
+        //3rd input attack Down(not compatable with game design)
+        //
+        //inputForm.attacks[2, 0] = Input.GetMouseButtonDown(1) && Input.GetMouseButtonDown(0);
     }
     public void Shield()
     {

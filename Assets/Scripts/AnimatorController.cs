@@ -20,18 +20,13 @@ public class AnimatorController : MonoBehaviour
     {
      
     }
-<<<<<<< Updated upstream
-    public void Animate()
-=======
     public void SlowMotionAnim(float rythem)
     {
         
         anim.SetFloat("slowMo", rythem);
     }
     public void UpdateAnimes()
->>>>>>> Stashed changes
     {
-
         //Movement Animations//
         if (player.isWalking)
         {
@@ -39,20 +34,16 @@ public class AnimatorController : MonoBehaviour
         }
         else anim.SetBool("isWalking", false);
 
-<<<<<<< Updated upstream
-        if (player.dash)
-=======
     
     }
     public void CommandAnimes()
     {
 
         if (player.dash && player.isAttackState)
->>>>>>> Stashed changes
         {
             anim.SetTrigger("dash");
         }
-     
+
 
         //Jump Animation//
         if (player.jump)
@@ -71,7 +62,7 @@ public class AnimatorController : MonoBehaviour
             if (player.Attacks[i,0]) 
             {
                 if (i == 0)
-                    anim.SetFloat("attackSpeed", player.stats.attackSpeed);
+                    anim.SetFloat("attackSpeed",player.stats.attackSpeed);
                 anim.SetTrigger("attack1");
              if (i==1)
                 anim.SetTrigger("attack2");
@@ -84,7 +75,7 @@ public class AnimatorController : MonoBehaviour
         //Skills Animations//
         for (int i = 0; i < player.Skills.GetLength(0); i++)
         {
-            if (player.Skills[i, 0])
+            if (player.Skills[i, 0] && !player.Skills[i, 1]) 
             {
 
             if (i==0)

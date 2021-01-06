@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,9 +8,10 @@ public class Player : MonoBehaviour
 {
     public GameObject Target;
     Rigidbody rb;
-    public PlayerStats stats;
-    GenericController genericController;
-    AnimatorController animatorController;
+    public PlayerStats StatsSO;
+    public CharacterShit stats;
+    GenericController _genericController;
+    AnimatorController _animatorController;
     public GameObject tps;
     int skills = 5;
     int skillsStates = 2;
@@ -31,9 +33,6 @@ public class Player : MonoBehaviour
 
     public LayerMask enemyLayerMask;
 
-<<<<<<< Updated upstream
-    Vector2 moveVector;
-=======
     public ParticleSystem basicAttackPS;
     public ParticleSystem skill2PS;
     public ParticleSystem[] skill3PS;
@@ -41,7 +40,6 @@ public class Player : MonoBehaviour
     public EarthCrackSkill earthCrackSkill;
     public GameObject GroundSmackskill;
     public Vector2 moveVector;
->>>>>>> Stashed changes
 
     //ADDED
     public GameObject emotePrefab; //has Emote script
@@ -61,15 +59,15 @@ public class Player : MonoBehaviour
     public void Start()
     {
         
-        genericController = GetComponent<GenericController>();
-        animatorController = GetComponent<AnimatorController>();
+        _genericController = GetComponent<GenericController>();
+        _animatorController = GetComponent<AnimatorController>();
+        CharacterShit _characterShit= new CharacterShit();
+        PrintData();
+        
         
         rb = GetComponent<Rigidbody>();
     }
 
-<<<<<<< Updated upstream
-   
-=======
     public void PrintData()
     {
         stats.ability1_CD = StatsSO.ability1_CD;
@@ -110,7 +108,6 @@ public class Player : MonoBehaviour
 
 
     }
->>>>>>> Stashed changes
 
     private void FixedUpdate()
     {
@@ -141,7 +138,7 @@ public class Player : MonoBehaviour
     public void Update()
     {
        
-        InputForm _inputForm = genericController.GetInputForm();
+        InputForm _inputForm = _genericController.GetInputForm();
         
         
 
@@ -191,7 +188,7 @@ public class Player : MonoBehaviour
        //Skills//
         for (int i = 0; i < _inputForm.skills.GetLength(0); i++)
         {
-            if (_inputForm.skills[i, 0] && !isAttackState)
+            if (_inputForm.skills[i, 0] && !isAttackState && !Skills[i,1])
             {
                 if (i == 0)
                     StartCoroutine(Skill1());
@@ -262,14 +259,17 @@ public class Player : MonoBehaviour
 
 
         moveVector = _inputForm.moveVector * _speed;
-     
-       transform.Rotate(0, _inputForm.rotVector.x, 0);
+
+        _animatorController.UpdateAnimes();
+
+         transform.Rotate(0, _inputForm.rotVector.x, 0);
         tps.transform.Rotate(-_inputForm.rotVector.y*stats.mouseSensetivity,0,0);
+     
         Target.transform.localPosition = new Vector3(Target.transform.localPosition.x, Target.transform.localPosition.y, Target.transform.localPosition.z + _inputForm.rotVector.y/(stats.mouseSensetivity* stats.targetMoveSpeed));
 
 
 
-        animatorController.Animate();
+        
     }
     public IEnumerator LeapTowards()
     {
@@ -320,27 +320,32 @@ public class Player : MonoBehaviour
     IEnumerator Dash()
     {
         dash = true;
-       // isAttackState = true;
+        isAttackState = true;
+        _animatorController.CommandAnimes();
         rb.AddRelativeForce(Vector3.forward*1000);
-        yield return new WaitForSeconds(1);
-       // isAttackState = false;
+        yield return new WaitForSeconds(0.6f);
+        isAttackState = false;
         dash = false;
+     
         yield return null;
     }
 
     IEnumerator Attack1()
     {
+        float secondsInIE = 0;
         isAttackState = true;
         Attacks[0,0] = true;
+        _animatorController.CommandAnimes();
         int DamageCount;
         DamageCount = stats.PhisycalDamage;
         if (DoCrit())
         {   //just for presenting!!
-            GetComponentInChildren<ParticleSystem>().Play();
+            basicAttackPS.Play();
             DamageCount *= 2;
          
         }
-
+        secondsInIE++;
+        yield return new WaitForSeconds(0.7f);
         Collider[] hit = Physics.OverlapSphere(basicAttackSource.position, stats.basicAttackRange,enemyLayerMask);
         foreach(Collider found in hit)
         {
@@ -353,7 +358,7 @@ public class Player : MonoBehaviour
         }
         yield return new WaitForEndOfFrame();
         Attacks[0,0] = false;
-        yield return new WaitForSeconds(2f/stats.attackSpeed);
+        yield return new WaitForSeconds((2f/stats.attackSpeed)-secondsInIE);
         isAttackState = false;
         yield return null;
     }  
@@ -361,9 +366,10 @@ public class Player : MonoBehaviour
     {
         isAttackState = true;
         Attacks[1,0] = true;
+        _animatorController.CommandAnimes();
         yield return new WaitForEndOfFrame();
         Attacks[1,0] = false;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2f);
         isAttackState = false;
         yield return null;
     }  
@@ -371,38 +377,77 @@ public class Player : MonoBehaviour
     {
         isAttackState = true;
         Attacks[2,0] = true;
+        _animatorController.CommandAnimes();
         yield return new WaitForEndOfFrame();
         Attacks[2,0] = false;
         yield return new WaitForSeconds(2);
         isAttackState = false;
         yield return null;
+        
     }
     IEnumerator Skill1()
     {
         isAttackState = true;
         Skills[0,0] = true;
+        _animatorController.CommandAnimes();
+       
+        Buff(0.25f, 0.25f, 0.15f, stats.currentHp / 4,0 , true);
         yield return new WaitForEndOfFrame();
-        Skills[0,0] = false;
-        yield return new WaitForSeconds(2);
+        Skills[0, 0] = false;
+        Skills[0, 1] = true;
+
+        skill1PS.Play();
+        yield return new WaitForSeconds(2 / stats.attackSpeed);
         isAttackState = false;
+        yield return new WaitForSeconds(15);
+        Buff(0.25f, 0.25f, 0.15f, 0, stats.currentHp / 4, false);
+        yield return new WaitForSeconds(5);
+        Skills[0, 1] = false;
+
         yield return null;
     }
+
     IEnumerator Skill2()
     {
+        float secondsInIE=0;
+        int damageCount;
+        damageCount = stats.AbilityDamage;
         isAttackState = true;
         Skills[1,0] = true;
+        _animatorController.CommandAnimes();
+        Skills[1, 1] = true;
         yield return new WaitForEndOfFrame();
-        Skills[1,0] = false;
-        yield return new WaitForSeconds(2);
+        Skills[1, 0] = false;
+        skill2PS.Play();
+        
+        for (int i = 0; i < stats.ability2_Duration; i++)
+        {
+            
+            Collider[] hit = Physics.OverlapSphere(transform.position, stats.ability2_Range, enemyLayerMask);
+            foreach (Collider found in hit)
+            {
+                EnemyAI enemyhitted = found.GetComponent<EnemyAI>();
+
+
+
+                enemyhitted.GetHit(damageCount);
+            }
+            secondsInIE++;
+            yield return new WaitForSeconds(1);
+        }
+
+
+
+        Debug.Log("aaaaas");
         isAttackState = false;
+        yield return new WaitForSeconds(stats.ability2_CD - secondsInIE);
+        Skills[1, 1] = false;
         yield return null;
     }
     IEnumerator Skill3()
     {
         isAttackState = true;
         Skills[2,0] = true;
-<<<<<<< Updated upstream
-=======
         _animatorController.CommandAnimes();
         yield return new WaitForSeconds(1);
         earthCrackSkill.Init();
@@ -413,7 +458,6 @@ public class Player : MonoBehaviour
             skill3PS[i].Play();
         }
         
->>>>>>> Stashed changes
         yield return new WaitForEndOfFrame();
         Skills[2,0] = false;
         yield return new WaitForSeconds(2);
@@ -427,8 +471,6 @@ public class Player : MonoBehaviour
         damageCount = stats.AbilityDamage;
         isAttackState = true;
         Skills[3,0] = true;
-<<<<<<< Updated upstream
-=======
         _animatorController.CommandAnimes();
         yield return new WaitForSeconds(0.6f);
         StartCoroutine(LeapTowards());
@@ -458,7 +500,6 @@ public class Player : MonoBehaviour
         }
 
         CameraShake(1f,4f);
->>>>>>> Stashed changes
         yield return new WaitForEndOfFrame();
         Skills[3,0] = false;
         yield return new WaitForSeconds(3);
@@ -470,6 +511,7 @@ public class Player : MonoBehaviour
     {
         isAttackState = true;
         Skills[4,0] = true;
+        _animatorController.CommandAnimes();
         yield return new WaitForEndOfFrame();
         Skills[4,0] = false;
         yield return new WaitForSeconds(2);
@@ -480,6 +522,7 @@ public class Player : MonoBehaviour
     {
         isAttackState = true;
         doShield = true;
+        _animatorController.CommandAnimes();
         yield return new WaitForEndOfFrame();
         doShield = false;
         yield return new WaitForSeconds(1);
@@ -489,6 +532,7 @@ public class Player : MonoBehaviour
     {
         isAttackState = true;
         gestures[0] = true;
+        _animatorController.CommandAnimes();
         yield return new WaitForEndOfFrame();
         gestures[0] = false;
         yield return new WaitForSeconds(2);
@@ -499,6 +543,7 @@ public class Player : MonoBehaviour
     {
         isAttackState = true;
         gestures[1] = true;
+        _animatorController.CommandAnimes();
         yield return new WaitForEndOfFrame();
         gestures[1] = false;
         yield return new WaitForSeconds(2);
@@ -509,6 +554,7 @@ public class Player : MonoBehaviour
     {
         isAttackState = true;
         gestures[2] = true;
+        _animatorController.CommandAnimes();
         yield return new WaitForEndOfFrame();
         gestures[2] = false;
         yield return new WaitForSeconds(2);
@@ -528,7 +574,7 @@ public class Player : MonoBehaviour
 
     public bool DoCrit()
     {
-        int CritCount = Random.Range(1, 100);
+        int CritCount = UnityEngine.Random.Range(1, 100);
     
         if (stats.CritChance >= CritCount)
         {
@@ -545,7 +591,38 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireSphere(basicAttackSource.position, stats.basicAttackRange);
         
     }
+
+    //if no multiply multiply by 1 || if no add add 0 bool is for debuffing
+    public void Buff(float attackSpeedM, float speedM, float lifeStealM, int Shield ,int heal,bool buff)
+    {
+        switch (buff)
+        {
+            case true:
+            
+                stats.attackSpeed += attackSpeedM;
+                stats.moveSpeed += speedM;
+                stats.lifeSteal += lifeStealM;
+                stats.shield += Shield;
+                stats.currentHp += heal;
+            
+               break;
+
+            case false:
+                stats.attackSpeed -= attackSpeedM;
+                stats.moveSpeed -= speedM;
+                stats.lifeSteal -= lifeStealM;
+                stats.shield = Shield;
+                stats.currentHp = heal;
+
+
+                break;
+
+        }
+
+        
+    }
 }
+
 
 
 public class InputForm
@@ -568,6 +645,7 @@ public class InputForm
 
 
 
+        
 
 
 

@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class EnemyAI : MonoBehaviour
 {
     public EnemyStats enemyStats;
     public EnemiesManager enemiesManager=new EnemiesManager();
-<<<<<<< Updated upstream
- 
-=======
     MeshRenderer myMesh;
     Rigidbody rb;
    public Material[] mat;
 
 
->>>>>>> Stashed changes
     internal int hp,level,damage;
     internal int id;
 
@@ -26,15 +24,11 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-<<<<<<< Updated upstream
-
-=======
         myMesh = this.gameObject.GetComponent<MeshRenderer>();
         hp *= level;
         damage *= level;
         rb = GetComponent<Rigidbody>();
         
->>>>>>> Stashed changes
        
     }
    
@@ -52,9 +46,12 @@ public class EnemyAI : MonoBehaviour
 
     public void GetHit(int Damage)
     {
-        hp -= Damage;
         
-       
+        hp -= Damage;
+        myMesh.material = mat[1];
+        Invoke("colorBack", 0.2f);
+     
+
 
     }
     public void ApplyKnockBack(float explosionStrenght,Vector3 Source,float radius)
@@ -79,8 +76,14 @@ public class EnemyAI : MonoBehaviour
     {
         hp = enemyStats.hp;
         damage = enemyStats.damage;
+        level = enemyStats.level;
         
         
+    }
+    public void colorBack()
+    {
+        myMesh.material = mat[0];
+
     }
 
 }

@@ -38,7 +38,7 @@ public class GroundSmackEffect : MonoBehaviour
         foreach (GameObject found in firstCircle)
         {
            
-            StartCoroutine(FirstCircleDraw(found,true));
+            StartCoroutine(DrawCircle(found,true));
             Smokes[0].Play();
 
 
@@ -48,7 +48,7 @@ public class GroundSmackEffect : MonoBehaviour
         foreach (GameObject found in secondCircle)
         {
             
-            StartCoroutine(FirstCircleDraw(found, true));
+            StartCoroutine(DrawCircle(found, true));
             Smokes[1].Play();
 
 
@@ -56,7 +56,7 @@ public class GroundSmackEffect : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenWaves);
         foreach (GameObject found in thirdCircle)
         {
-            StartCoroutine(FirstCircleDraw(found, true));
+            StartCoroutine(DrawCircle(found, true));
             Smokes[2].Play();
 
 
@@ -68,7 +68,7 @@ public class GroundSmackEffect : MonoBehaviour
         foreach (GameObject found in firstCircle)
         {
 
-            StartCoroutine(FirstCircleDraw(found, false));
+            StartCoroutine(DrawCircle(found, false));
 
 
         }
@@ -77,7 +77,7 @@ public class GroundSmackEffect : MonoBehaviour
         foreach (GameObject found in secondCircle)
         {
 
-            StartCoroutine(FirstCircleDraw(found, false));
+            StartCoroutine(DrawCircle(found, false));
 
 
         }
@@ -85,7 +85,7 @@ public class GroundSmackEffect : MonoBehaviour
         foreach (GameObject found in thirdCircle)
         {
 
-            StartCoroutine(FirstCircleDraw(found, false));
+            StartCoroutine(DrawCircle(found, false));
 
 
         }
@@ -98,7 +98,7 @@ public class GroundSmackEffect : MonoBehaviour
     }
 
 
-    IEnumerator FirstCircleDraw(GameObject Rock ,bool isCasting)
+    IEnumerator DrawCircle(GameObject Rock ,bool isCasting)
     {
         if (isCasting)
         {

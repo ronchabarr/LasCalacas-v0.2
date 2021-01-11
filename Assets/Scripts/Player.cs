@@ -271,7 +271,7 @@ public class Player : MonoBehaviour
 
         
     }
-    public IEnumerator LeapTowards()
+    public IEnumerator LeapTowards(Transform destination)
     {
             
         for (int i = 0; i < 80; i++)
@@ -279,13 +279,13 @@ public class Player : MonoBehaviour
             if (i > 40&&i<60)
             {
 
-                transform.Translate((Target.transform.localPosition * 2) / 80);
+                transform.Translate((destination.localPosition * 2) / 80);
                 yield return new WaitForSeconds(0.3f / (80 - i));
             }
             else
             {
 
-                transform.Translate((Target.transform.localPosition * 2) / 80);
+                transform.Translate((destination.localPosition * 2) / 80);
                 yield return new WaitForSeconds(0.1f / (80 - i));
             }
                
@@ -466,14 +466,15 @@ public class Player : MonoBehaviour
     }
     IEnumerator Skill4()
     {
+        float CastToMovementDelay= 0.6f;
         float secondsInIE = 0;
         int damageCount;
         damageCount = stats.AbilityDamage;
         isAttackState = true;
         Skills[3,0] = true;
         _animatorController.CommandAnimes();
-        yield return new WaitForSeconds(0.6f);
-        StartCoroutine(LeapTowards());
+        yield return new WaitForSeconds(CastToMovementDelay);
+        StartCoroutine(LeapTowards(Target.transform));
         _animatorController.SlowMotionAnim(2.2f);
         yield return new WaitForSeconds(0.2f);
         _animatorController.SlowMotionAnim(0.25f);

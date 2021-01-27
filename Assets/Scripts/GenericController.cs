@@ -7,27 +7,27 @@ public class GenericController : MonoBehaviour
 {
     InputForm inputForm;
     bool attackState;
-
-
+    
+   
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         inputForm = new InputForm();
 
-
+       
 
 
     }
 
     public InputForm GetInputForm()
     {
-
+        
         inputForm.moveVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         inputForm.rotVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
 
         Dash();
-        //Jump Currently Disabled due to gamedesign
+        //Jump Currently Disabled due to gamedesign 
         //jump();
         Attacks();
         Skills();
@@ -39,7 +39,7 @@ public class GenericController : MonoBehaviour
         return inputForm;
     }
 
-
+   
 
     public void jump()
     {
@@ -49,7 +49,7 @@ public class GenericController : MonoBehaviour
     {
 
         inputForm.Dash=Input.GetKeyDown(KeyCode.LeftShift);
-
+   
     }
     public void Skills()
     {
@@ -59,7 +59,6 @@ public class GenericController : MonoBehaviour
         inputForm.skills[1, 0] = Input.GetKeyDown(KeyCode.E);
         inputForm.skills[2, 0] = Input.GetKeyDown(KeyCode.R);
         inputForm.skills[3, 0] = Input.GetKeyDown(KeyCode.T);
-
         //inputForm.skills[4, 0] = Input.GetKeyDown(KeyCode.Y);
     }
     public void Gestures()
@@ -86,6 +85,6 @@ public class GenericController : MonoBehaviour
     }
     public void Shield()
     {
-        inputForm.shieldPress = Input.GetKeyDown(KeyCode.V);
+        inputForm.shieldPress = Input.GetKeyDown(KeyCode.V); 
     }
 }

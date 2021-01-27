@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Enemy1Stats
   m_EditorClassIdentifier: 
   damage: 10
-  hp: 100
+  hp: 200
   level: 2
+  maxHp: 200
+  spawnTime: 10

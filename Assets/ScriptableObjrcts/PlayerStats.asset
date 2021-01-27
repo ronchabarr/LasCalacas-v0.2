@@ -25,7 +25,7 @@ MonoBehaviour:
   shield: 0
   Level: 1
   CritChance: 50
-  PhisycalDamage: 40
+  PhisycalDamage: 30
   AbilityDamage: 20
   mouseSensetivity: 1
   targetMoveSpeed: 30
@@ -41,5 +41,5 @@ MonoBehaviour:
   ability3_Duration: 0
   ability3_Range: 0
   ability4_CD: 0
-  ability4_Duration: 0
-  ability4_Range: 0
+  ability4_Duration: 1
+  ability4_Range: 5

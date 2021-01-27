@@ -58,13 +58,13 @@ public class Player : MonoBehaviour
 
     public void Start()
     {
-
+        
         _genericController = GetComponent<GenericController>();
         _animatorController = GetComponent<AnimatorController>();
         CharacterShit _characterShit= new CharacterShit();
         PrintData();
-
-
+        
+        
         rb = GetComponent<Rigidbody>();
     }
 
@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
 
-
+        
        rb.AddRelativeForce(moveVector.x,0,moveVector.y,ForceMode.Impulse);
         dash = false;
 
@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("ground"))
         {
             Debug.Log("Ground Detection");
-        }
+        } 
     }
     public void CameraShake(float lenght,float strenght)
     {
@@ -137,10 +137,10 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
-
+       
         InputForm _inputForm = _genericController.GetInputForm();
-
-
+        
+        
 
         if (_inputForm.moveVector != Vector2.zero&&!isAttackState)
         {
@@ -246,7 +246,7 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(ShieldPress());
         }
-
+       
 
 
 
@@ -264,37 +264,37 @@ public class Player : MonoBehaviour
 
          transform.Rotate(0, _inputForm.rotVector.x, 0);
         tps.transform.Rotate(-_inputForm.rotVector.y*stats.mouseSensetivity,0,0);
-
+     
         Target.transform.localPosition = new Vector3(Target.transform.localPosition.x, Target.transform.localPosition.y, Target.transform.localPosition.z + _inputForm.rotVector.y/(stats.mouseSensetivity* stats.targetMoveSpeed));
 
 
 
-
+        
     }
-    public IEnumerator LeapTowards()
+    public IEnumerator LeapTowards(Transform destination)
     {
-
+            
         for (int i = 0; i < 80; i++)
         {
             if (i > 40&&i<60)
             {
 
-                transform.Translate((Target.transform.localPosition * 2) / 80);
+                transform.Translate((destination.localPosition * 2) / 80);
                 yield return new WaitForSeconds(0.3f / (80 - i));
             }
             else
             {
 
-                transform.Translate((Target.transform.localPosition * 2) / 80);
+                transform.Translate((destination.localPosition * 2) / 80);
                 yield return new WaitForSeconds(0.1f / (80 - i));
             }
+               
+            
 
-
-
-
+            
         }
         yield return null;
-
+           
     }
 
     private void AttackByIndex(int i)
@@ -326,7 +326,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         isAttackState = false;
         dash = false;
-
+     
         yield return null;
     }
 
@@ -342,18 +342,18 @@ public class Player : MonoBehaviour
         {   //just for presenting!!
             basicAttackPS.Play();
             DamageCount *= 2;
-
+         
         }
         secondsInIE++;
         yield return new WaitForSeconds(0.7f);
         Collider[] hit = Physics.OverlapSphere(basicAttackSource.position, stats.basicAttackRange,enemyLayerMask);
         foreach(Collider found in hit)
         {
-            EnemyAI enemyhitted = found.GetComponent<EnemyAI>();
+           EnemyAI enemyhitted = found.GetComponent<EnemyAI>();
+           
 
-
-
-            enemyhitted.GetHit(DamageCount);
+            
+            enemyhitted.TakeDamage(DamageCount);
 
         }
         yield return new WaitForEndOfFrame();
@@ -361,7 +361,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds((2f/stats.attackSpeed)-secondsInIE);
         isAttackState = false;
         yield return null;
-    }
+    }  
     IEnumerator Attack2()
     {
         isAttackState = true;
@@ -372,7 +372,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(2f);
         isAttackState = false;
         yield return null;
-    }
+    }  
     IEnumerator Attack3()
     {
         isAttackState = true;
@@ -383,14 +383,14 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(2);
         isAttackState = false;
         yield return null;
-
+        
     }
     IEnumerator Skill1()
     {
         isAttackState = true;
         Skills[0,0] = true;
         _animatorController.CommandAnimes();
-
+       
         Buff(0.25f, 0.25f, 0.15f, stats.currentHp / 4,0 , true);
         yield return new WaitForEndOfFrame();
         Skills[0, 0] = false;
@@ -419,10 +419,10 @@ public class Player : MonoBehaviour
         yield return new WaitForEndOfFrame();
         Skills[1, 0] = false;
         skill2PS.Play();
-
+        
         for (int i = 0; i < stats.ability2_Duration; i++)
         {
-
+            
             Collider[] hit = Physics.OverlapSphere(transform.position, stats.ability2_Range, enemyLayerMask);
             foreach (Collider found in hit)
             {
@@ -430,7 +430,7 @@ public class Player : MonoBehaviour
 
 
 
-                enemyhitted.GetHit(damageCount);
+                enemyhitted.TakeDamage(damageCount);
             }
             secondsInIE++;
             yield return new WaitForSeconds(1);
@@ -457,7 +457,7 @@ public class Player : MonoBehaviour
 
             skill3PS[i].Play();
         }
-
+        
         yield return new WaitForEndOfFrame();
         Skills[2,0] = false;
         yield return new WaitForSeconds(2);
@@ -466,14 +466,15 @@ public class Player : MonoBehaviour
     }
     IEnumerator Skill4()
     {
+        float CastToMovementDelay= 0.6f;
         float secondsInIE = 0;
         int damageCount;
         damageCount = stats.AbilityDamage;
         isAttackState = true;
         Skills[3,0] = true;
         _animatorController.CommandAnimes();
-        yield return new WaitForSeconds(0.6f);
-        StartCoroutine(LeapTowards());
+        yield return new WaitForSeconds(CastToMovementDelay);
+        StartCoroutine(LeapTowards(Target.transform));
         _animatorController.SlowMotionAnim(2.2f);
         yield return new WaitForSeconds(0.2f);
         _animatorController.SlowMotionAnim(0.25f);
@@ -483,7 +484,7 @@ public class Player : MonoBehaviour
         _animatorController.SlowMotionAnim(1);
         GameObject prefab = Instantiate(GroundSmackskill,transform.position,Quaternion.identity);
         prefab.GetComponent<GroundSmackEffect>().Init();
-
+        
      //  prefab.transform.DetachChildren();
 
         for (int i = 0; i < stats.ability4_Duration; i++)
@@ -494,7 +495,7 @@ public class Player : MonoBehaviour
             {
                 EnemyAI enemyhitted = found.GetComponent<EnemyAI>();
                 enemyhitted.ApplyKnockBack(1000, transform.position, 6.5f);
-                enemyhitted.GetHit(damageCount);
+                enemyhitted.TakeDamage(damageCount);
             }
             secondsInIE++;
         }
@@ -561,7 +562,7 @@ public class Player : MonoBehaviour
         isAttackState = false;
         yield return null;
     }
-
+   
 
     void Emote(int i)
     {
@@ -575,7 +576,7 @@ public class Player : MonoBehaviour
     public bool DoCrit()
     {
         int CritCount = UnityEngine.Random.Range(1, 100);
-
+    
         if (stats.CritChance >= CritCount)
         {
             return true;
@@ -589,7 +590,7 @@ public class Player : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(basicAttackSource.position, stats.basicAttackRange);
-
+        
     }
 
     //if no multiply multiply by 1 || if no add add 0 bool is for debuffing
@@ -598,13 +599,13 @@ public class Player : MonoBehaviour
         switch (buff)
         {
             case true:
-
+            
                 stats.attackSpeed += attackSpeedM;
                 stats.moveSpeed += speedM;
                 stats.lifeSteal += lifeStealM;
                 stats.shield += Shield;
                 stats.currentHp += heal;
-
+            
                break;
 
             case false:
@@ -619,7 +620,7 @@ public class Player : MonoBehaviour
 
         }
 
-
+        
     }
 }
 
@@ -632,11 +633,12 @@ public class InputForm
 
     public bool Dash,crouchPress,jumpHold,jumpPress,attackState,
         interractPress,interractHold,shieldPress,shieldHold,menuPress,backPress,reload,charge                 ;
-
+    
     public bool[,] skills = new bool[5,2]; //[x,0] - press array || [x,1] - hold array || x-skill type
     public bool[,] attacks = new bool[3,2]; //[x,0] - press array || [x,1] - hold array || x-attack type
     public bool[] gesture = new bool[3];
     public bool[] emote = new bool[3];
+    
 
 
 
@@ -644,9 +646,14 @@ public class InputForm
 
 
 
-
-
+        
 
 
 
 }
+
+
+
+
+
+    

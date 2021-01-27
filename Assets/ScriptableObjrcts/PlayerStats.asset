@@ -25,7 +25,7 @@ MonoBehaviour:
   shield: 0
   Level: 1
   CritChance: 50
-  PhisycalDamage: 40
+  PhisycalDamage: 30
   AbilityDamage: 20
   mouseSensetivity: 1
   targetMoveSpeed: 30

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78947681a78a4ad4180acd25c462188d, type: 3}
+  m_Name: enemyList
+  m_EditorClassIdentifier: 
+  NorthEnemies: {fileID: 8458090939135322674, guid: a0ca2f768de48a74aab7085c7c30ce94,
+    type: 3}
+  SouthEnemies: {fileID: 8458090939135322674, guid: 4649519c5d1f09f44ad13a7419b77296,
+    type: 3}
+  EastEnemies: {fileID: 5618246480776429341, guid: 0cb4a4bf16aee124688891552a9c8fbd,
+    type: 3}
+  WestEnemies: {fileID: 8458090939135322674, guid: 18a550ea934da5340bddb263bb0f52d7,
+    type: 3}

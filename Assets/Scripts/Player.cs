@@ -349,11 +349,11 @@ public class Player : MonoBehaviour
         Collider[] hit = Physics.OverlapSphere(basicAttackSource.position, stats.basicAttackRange,enemyLayerMask);
         foreach(Collider found in hit)
         {
-            EnemyAI enemyhitted = found.GetComponent<EnemyAI>();
+           EnemyAI enemyhitted = found.GetComponent<EnemyAI>();
            
 
             
-            enemyhitted.GetHit(DamageCount);
+            enemyhitted.TakeDamage(DamageCount);
 
         }
         yield return new WaitForEndOfFrame();
@@ -430,7 +430,7 @@ public class Player : MonoBehaviour
 
 
 
-                enemyhitted.GetHit(damageCount);
+                enemyhitted.TakeDamage(damageCount);
             }
             secondsInIE++;
             yield return new WaitForSeconds(1);
@@ -495,7 +495,7 @@ public class Player : MonoBehaviour
             {
                 EnemyAI enemyhitted = found.GetComponent<EnemyAI>();
                 enemyhitted.ApplyKnockBack(1000, transform.position, 6.5f);
-                enemyhitted.GetHit(damageCount);
+                enemyhitted.TakeDamage(damageCount);
             }
             secondsInIE++;
         }

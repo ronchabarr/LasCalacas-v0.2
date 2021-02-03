@@ -4,12 +4,9 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class EnemyStats: ScriptableObject
 {
-    public int damage, hp, level;
+    public int damage, hp, level,maxHp,spawnTime;
 
-   public void sayhi()
-    {
-        Debug.Log("hi");
-    }
+
     
 
     

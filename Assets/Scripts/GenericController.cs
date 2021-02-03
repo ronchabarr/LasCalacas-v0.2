@@ -66,7 +66,7 @@ public class GenericController : MonoBehaviour
         inputForm.skills[0, 0] = Input.GetKeyDown(KeyCode.Q);
         inputForm.skills[1, 0] = Input.GetKeyDown(KeyCode.E);
         inputForm.skills[2, 0] = Input.GetKeyDown(KeyCode.R);
-        //inputForm.skills[3, 0] = Input.GetKeyDown(KeyCode.T);
+        inputForm.skills[3, 0] = Input.GetKeyDown(KeyCode.T);
         //inputForm.skills[4, 0] = Input.GetKeyDown(KeyCode.Y);
     }
     public void Gestures()

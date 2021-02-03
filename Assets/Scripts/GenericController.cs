@@ -14,9 +14,6 @@ public class GenericController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         inputForm = new InputForm();
 
-       
-
-
     }
 
     public InputForm GetInputForm()
@@ -26,14 +23,25 @@ public class GenericController : MonoBehaviour
         inputForm.rotVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
 
-        Dash();
-        //Jump Currently Disabled due to gamedesign 
-        //jump();
-        Attacks();
-        Skills();
-        Gestures();
-        Emotes();
-        Shield();
+        if (inputForm.moveVector.magnitude > 1)
+        {
+            inputForm.moveVector.Normalize();
+        }
+
+
+
+
+        // Chen Made Sure about the Warnings   -- Param in Animator not use
+
+
+        //Dash();
+        ////Jump Currently Disabled due to gamedesign 
+        ////jump();
+        //Attacks();
+        //Skills();
+        //Gestures();
+        //Emotes();
+        //Shield();
 
 
         return inputForm;

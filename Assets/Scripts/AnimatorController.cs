@@ -6,111 +6,121 @@ public class AnimatorController : MonoBehaviour
 {
     Player player;
     Animator anim;
-  
+    public float speed;
+   
+
     // Start is called before the first frame update
     void Start()
     {
-       
         player = GetComponent<Player>();
         anim = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-     
+
+        var x = player.moveVector.x;
+        var y = player.moveVector.y;
+
+        ChenRedo(x, y);
     }
-    public void UpdateAnimes()
+
+    private void ChenRedo(float x,float y)
     {
-        //Movement Animations//
+      
 
-        if(player.isWalking)
-        {
-            player.StatsSO.velocity += player.StatsSO.acceleration * Time.deltaTime;
-            if (player.StatsSO.velocity > 1)
-            {
-                player.StatsSO.velocity = 1;
-            }
+        anim.SetFloat("VelX", x);
+        anim.SetFloat("VelY", y);
+    
+        transform.position += (player.transform.forward * speed) * y * Time.deltaTime;
+        transform.position += (player.transform.right * speed )* x * Time.deltaTime;
 
-        }
-        else
-        {
-            if (player.StatsSO.velocity > 0)
-            {
-                player.StatsSO.velocity -= player.StatsSO.deacceleration * Time.deltaTime;
-            }
-
-            if (player.StatsSO.velocity < 0)
-            {
-                player.StatsSO.velocity = 0;
-            }
-
-        }
-        if (player.StatsSO.isattackingOne)
-        {
-            player.StatsSO.AtkOne += player.StatsSO.AtkOneacceleration * Time.deltaTime;
-            if (player.StatsSO.AtkOne > 1)
-            {
-                player.StatsSO.AtkOne = 1;
-                player.StatsSO.isattackingOne = false;
-            }
-
-        }
-        else
-        {
-            if (player.StatsSO.AtkOne > 0)
-            {
-                player.StatsSO.AtkOne -= player.StatsSO.AtkOnedeacceleration * Time.deltaTime;
-            }
-
-            if (player.StatsSO.AtkOne < 0)
-            {
-                player.StatsSO.AtkOne = 0;
-            }
-        }
-
-
-        if (player.StatsSO.isattackingTwo)
-        {
-            player.StatsSO.AtkTwo += player.StatsSO.AtkTwoacceleration * Time.deltaTime;
-            if (player.StatsSO.AtkTwo > 1)
-            {
-                player.StatsSO.AtkTwo = 1;
-                player.StatsSO.isattackingTwo = false;
-            }
-
-        }
-        else
-        {
-            if (player.StatsSO.AtkTwo > 0)
-            {
-                player.StatsSO.AtkTwo -= player.StatsSO.AtkTwodeacceleration * Time.deltaTime;
-            }
-
-            if (player.StatsSO.AtkTwo < 0)
-            {
-                player.StatsSO.AtkTwo = 0;
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        anim.SetFloat("Velocity", player.StatsSO.velocity);
-        anim.SetFloat("AtkOne", player.StatsSO.AtkOne);
-        anim.SetFloat("AtkTwo", player.StatsSO.AtkTwo);
-
-        anim.SetBool("IsWalking", player.isWalking);
     }
+
+
+
+
+    //public void UpdateAnimes()
+    //{
+    //    //Movement Animations//
+
+    //    if(player.isWalking)
+    //    {
+    //        player.StatsSO.velocity += player.StatsSO.acceleration * Time.deltaTime;
+    //        if (player.StatsSO.velocity > 1)
+    //        {
+    //            player.StatsSO.velocity = 1;
+    //        }
+
+    //    }
+    //    else
+    //    {
+    //        if (player.StatsSO.velocity > 0)
+    //        {
+    //            player.StatsSO.velocity -= player.StatsSO.deacceleration * Time.deltaTime;
+    //        }
+
+    //        if (player.StatsSO.velocity < 0)
+    //        {
+    //            player.StatsSO.velocity = 0;
+    //        }
+
+    //    }
+    //    if (player.StatsSO.isattackingOne)
+    //    {
+    //        player.StatsSO.AtkOne += player.StatsSO.AtkOneacceleration * Time.deltaTime;
+    //        if (player.StatsSO.AtkOne > 1)
+    //        {
+    //            player.StatsSO.AtkOne = 1;
+    //            player.StatsSO.isattackingOne = false;
+    //        }
+
+    //    }
+    //    else
+    //    {
+    //        if (player.StatsSO.AtkOne > 0)
+    //        {
+    //            player.StatsSO.AtkOne -= player.StatsSO.AtkOnedeacceleration * Time.deltaTime;
+    //        }
+
+    //        if (player.StatsSO.AtkOne < 0)
+    //        {
+    //            player.StatsSO.AtkOne = 0;
+    //        }
+    //    }
+
+
+    //    if (player.StatsSO.isattackingTwo)
+    //    {
+    //        player.StatsSO.AtkTwo += player.StatsSO.AtkTwoacceleration * Time.deltaTime;
+    //        if (player.StatsSO.AtkTwo > 1)
+    //        {
+    //            player.StatsSO.AtkTwo = 1;
+    //            player.StatsSO.isattackingTwo = false;
+    //        }
+
+    //    }
+    //    else
+    //    {
+    //        if (player.StatsSO.AtkTwo > 0)
+    //        {
+    //            player.StatsSO.AtkTwo -= player.StatsSO.AtkTwodeacceleration * Time.deltaTime;
+    //        }
+
+    //        if (player.StatsSO.AtkTwo < 0)
+    //        {
+    //            player.StatsSO.AtkTwo = 0;
+    //        }
+    //    }
+
+    //    anim.SetFloat("Velocity", player.StatsSO.velocity);
+    //    anim.SetFloat("AtkOne", player.StatsSO.AtkOne);
+    //    anim.SetFloat("AtkTwo", player.StatsSO.AtkTwo);
+
+    //    anim.SetBool("IsWalking", player.isWalking);
+    //}
     public void CommandAnimes()
     {
 

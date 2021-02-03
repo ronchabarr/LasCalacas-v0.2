@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     public ParticleSystem skill2PS;
     public ParticleSystem skill1PS;
 
-    Vector2 moveVector;
+    public Vector2 moveVector;
 
     //ADDED
     public GameObject emotePrefab; //has Emote script
@@ -249,7 +249,7 @@ public class Player : MonoBehaviour
 
         moveVector = _inputForm.moveVector * _speed;
 
-        _animatorController.UpdateAnimes();
+      //  _animatorController.UpdateAnimes();
 
          transform.Rotate(0, _inputForm.rotVector.x, 0);
         tps.transform.Rotate(-_inputForm.rotVector.y*stats.mouseSensetivity,0,0);

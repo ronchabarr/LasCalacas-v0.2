@@ -1009,6 +1009,11 @@ PrefabInstance:
       propertyPath: SkillTwodeacceleration
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 8688568843691026385, guid: d38e852e7a9554749b44f66a61792873,
+        type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8911771105047378561, guid: d38e852e7a9554749b44f66a61792873,
         type: 3}
       propertyPath: m_Name

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78947681a78a4ad4180acd25c462188d, type: 3}
   m_Name: enemyList
   m_EditorClassIdentifier: 
-  NorthEnemies: {fileID: 8458090939135322674, guid: a0ca2f768de48a74aab7085c7c30ce94,
+  NorthEnemies: {fileID: 5618246480776429341, guid: 0cb4a4bf16aee124688891552a9c8fbd,
     type: 3}
-  SouthEnemies: {fileID: 8458090939135322674, guid: 4649519c5d1f09f44ad13a7419b77296,
+  SouthEnemies: {fileID: 8184585885067781448, guid: 71e8c177fe8e3a14fbf2de7a32c37e93,
     type: 3}
-  EastEnemies: {fileID: 5618246480776429341, guid: 0cb4a4bf16aee124688891552a9c8fbd,
+  EastEnemies: {fileID: 8184585885067781448, guid: 71e8c177fe8e3a14fbf2de7a32c37e93,
     type: 3}
-  WestEnemies: {fileID: 8458090939135322674, guid: 18a550ea934da5340bddb263bb0f52d7,
+  WestEnemies: {fileID: 8184585885067781448, guid: 71e8c177fe8e3a14fbf2de7a32c37e93,
     type: 3}

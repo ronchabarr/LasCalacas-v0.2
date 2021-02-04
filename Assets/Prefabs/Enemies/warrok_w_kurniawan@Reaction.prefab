@@ -1493,14 +1493,13 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 2048
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 100
+  walkPointRange: 10
   timeBetweenAttacks: 3
-  sightRange: 10
-  attackRange: 0
   playerinSightRange: 0
   playerInAttackRange: 0
   gotHit: 0
+  sightRange: 10
+  attackRange: 0
 --- !u!1 &5629985001146520558
 GameObject:
   m_ObjectHideFlags: 0
